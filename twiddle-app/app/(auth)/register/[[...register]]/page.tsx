@@ -1,9 +1,11 @@
-import { SignIn, SignUp } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 
 const Page = () => {
-  return <>
-  <SignUp></SignUp>
-  </>;
+  return (
+    <>
+      <SignUp></SignUp>
+    </>
+  );
 };
 
 export default Page;
