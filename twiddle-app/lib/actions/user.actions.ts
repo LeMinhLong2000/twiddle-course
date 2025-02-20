@@ -1,0 +1,35 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import User from "../models/user.model";
+import { connectToDB } from "../mongoose";
+import { FilterQuery, SortOrder } from "mongoose";
+
+interface CreateUserParams {
+  userId: String;
+  email: String;
+  username: String;
+  name: String;
+  image: String;
+}
+
+export const createUser = async ({
+  userId,
+  email,
+  name,
+  username,
+  image,
+}: CreateUserParams): Promise<void> => {
+  try {
+    connectToDB();
+    await User.create({
+      id: userId,
+      username: username?.toLowerCase(), // if username not null or undefined -> call toLowerCase()
+      name,
+      email,
+      image,
+    });
+  } catch (err: any) {
+    throw new Error(`Failed to create user: ${err.message}`);
+  }
+};
